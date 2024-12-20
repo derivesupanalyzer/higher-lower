@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tick Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        select, input {
+            margin: 10px 0;
+            padding: 5px;
+            width: 100%;
+        }
+        button {
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .red-button {
+            background-color: red;
+            color: white;
+        }
+        .green-button {
+            background-color: green;
+            color: white;
+        }
+        .reset-button {
+            background-color: gray;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Tick Analyzer</h1>
+
+    <label for="market">Market</label>
+    <select id="market">
+        <option value="volatility10">Volatility 10</option>
+        <option value="volatility25">Volatility 25</option>
+        <option value="volatility50">Volatility 50</option>
+        <option value="volatility75">Volatility 75</option>
+        <option value="volatility100">Volatility 100</option>
+    </select>
+
+    <label for="trade-type">Trade Type</label>
+    <select id="trade-type">
+        <option value="rise-fall">Rise/Fall</option>
+        <option value="over-under">Over/Under</option>
+        <option value="higher-lower">Higher/Lower</option>
+        <option value="touch-no-touch">Touch/No Touch</option>
+    </select>
+
+    <label for="stake">Stake</label>
+    <input type="number" id="stake" placeholder="Enter your stake" min="0">
+
+    <div>
+        <button class="red-button" onclick="handleClick('red')">Higher</button>
+        <button class="green-button" onclick="handleClick('green')">Lower</button>
+    </div>
+
+    <div class="result" id="result">Most clicked button will appear here.</div>
+
+    <button class="reset-button" onclick="resetAll()">Reset</button>
+</div>
+
+<script>
+    let clickCounts = { red: 0, green: 0 };
+    let totalClicks = 0;
+
+    function handleClick(button) {
+        if (totalClicks >= 10) {
+            alert('You have already clicked 10 times. Please reset.');
+            return;
+        }
+
+        clickCounts[button]++;
+        totalClicks++;
+
+        if (totalClicks === 10) {
+            const mostClicked = clickCounts.red > clickCounts.green ? 'Higher' : 'Lower';
+            document.getElementById('result').innerText = `Purchase result: ${mostClicked}`;
+        }
+    }
+
+    function resetAll() {
+        clickCounts = { red: 0, green: 0 };
+        totalClicks = 0;
+        document.getElementById('result').innerText = 'Processing...';
+        document.getElementById('stake').value = '';
+        document.getElementById('market').selectedIndex = 0;
+        document.getElementById('trade-type').selectedIndex = 0;
+    }
+</script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
